@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TrustPass - Product Verification</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f7fa;
+            color: #17202a;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: white;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            gap: 35px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #17202a;
+            margin-right: auto;
+        }
+
+        .logo span {
+            color: #08a879;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #17202a;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #08a879;
+        }
+
+        .login-btn {
+            background: #087bb5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            padding: 70px 20px 45px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #566573;
+            margin-bottom: 35px;
+        }
+
+        /* VERIFY BOX */
+
+        .verify-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .verify-box {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .verify-box input {
+            width: 330px;
+            padding: 14px;
+            border: 1px solid #ccd6dd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .verify-box button {
+            padding: 14px 22px;
+            border: none;
+            background: #087bb5;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .verify-box button:hover {
+            background: #066995;
+        }
+
+        /* CARDS */
+
+        .cards {
+            max-width: 1050px;
+            margin: 20px auto 70px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #d5dde2;
+            border-radius: 10px;
+            padding: 25px;
+            min-height: 190px;
+        }
+
+        .card h2 {
+            margin-bottom: 12px;
+            font-size: 21px;
+        }
+
+        .card p {
+            color: #566573;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .card button {
+            background: #0aa879;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .card button:hover {
+            background: #078d67;
+        }
+
+        /* REPORT CARD */
+
+        .report {
+            background: #fff4ef;
+            border-color: #e4b9aa;
+        }
+
+        .report button {
+            background: white;
+            color: #a34b37;
+            border: 1px solid #c78c7a;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            nav {
+                height: auto;
+                padding: 20px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .verify-box {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .verify-box input {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="logo">
+            🛡️ Trust<span>Pass</span>
+        </div>
+
+        <a href="#">Home</a>
+        <a href="#">Verify Product</a>
+        <a href="#">Register Product</a>
+        <a href="#">Seller Dashboard</a>
+        <a href="#">Admin Dashboard</a>
+        <a href="#">Report Product</a>
+
+        <a href="#" class="login-btn">Login</a>
+
+    </nav>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <h1>Simple & Trustworthy Product Verification</h1>
+
+        <p>
+            Protecting users and brands from counterfeit products with one click
+        </p>
+
+
+        <!-- VERIFY -->
+
+        <div class="verify-title">
+            Verify Product
+        </div>
+
+        <div class="verify-box">
+
+            <input
+                type="text"
+                id="productCode"
+                placeholder="Search Serial Number"
+            >
+
+            <button onclick="verifyProduct()">
+                🔍 Verify
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN CARDS -->
+
+    <section class="cards">
+
+
+        <!-- HOME -->
+
+        <div class="card">
+
+            <h2>Home</h2>
+
+            <p>
+                Start here to explore the platform
+                and learn how to secure your goods.
+            </p>
+
+            <button onclick="showMessage('Welcome to TrustPass!')">
+                Learn More →
+            </button>
+
+        </div>
+
+
+        <!-- VERIFY -->
+
+        <div class="card">
+
+            <h2>Verify Product</h2>
+
+            <p>
+                Quickly check if a product is verified
+                by entering its code or scanning.
+            </p>
+
+            <button onclick="focusVerification()">
+                Verify Now
+            </button>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div class="card">
+
+            <h2>Register Product</h2>
+
+            <p>
+                For manufacturers and verified sellers
+                to add new products and create codes.
+            </p>
+
+            <button onclick="showMessage('Product registration page coming next!')">
+                Register
+            </button>
+
+        </div>
+
+
+        <!-- SELLER -->
+
+        <div class="card">
+
+            <h2>Seller Dashboard</h2>
+
+            <p>
+                Easy tracking of product views,
+                scans, and verified sales.
+            </p>
+
+            <button onclick="showMessage('Seller Dashboard coming next!')">
+                View Dashboard
+            </button>
+
+        </div>
+
+
+        <!-- ADMIN -->
+
+        <div class="card">
+
+            <h2>Admin Dashboard</h2>
+
+            <p>
+                Platform overview to manage users,
+                approvals, and product verification.
+            </p>
+
+            <button onclick="showMessage('Admin Dashboard coming next!')">
+                Control Panel
+            </button>
+
+        </div>
+
+
+        <!-- REPORT -->
+
+        <div class="card report">
+
+            <h2>Report Product</h2>
+
+            <p>
+                Spot something suspicious?
+                Flag counterfeit or suspicious items here.
+            </p>
+
+            <button onclick="showMessage('Report system coming next!')">
+                Report Now
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function verifyProduct() {
+
+            const code =
+                document.getElementById("productCode").value;
+
+            if (code.trim() === "") {
+
+                alert("Please enter a product serial number.");
+
+            } else {
+
+                alert(
+                    "Checking Product ID: " + code +
+                    "\n\nVerification system will be connected to the database soon."
+                );
+
+            }
+
+        }
+
+
+        function focusVerification() {
+
+            document
+                .getElementById("productCode")
+                .focus();
+
+        }
+
+
+        function showMessage(message) {
+
+            alert(message);
+
+        }
+
+    </script>
+
+</body>
+</html>
