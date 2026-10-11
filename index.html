@@ -710,6 +710,14 @@ function submitRegistration(event) {
         return;
     }
 
+  localStorage.setItem("trustpassPendingProduct", JSON.stringify({
+    seller: seller,
+    product: product,
+    brand: brand,
+    serial: serial,
+    proof: proof,
+    status: "Pending Review"
+}));
     message.innerHTML = "";
 
     const heading = document.createElement("h3");
