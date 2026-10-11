@@ -332,7 +332,7 @@
                 scans, and verified sales.
             </p>
 
-            <button onclick="showMessage('Seller Dashboard coming next!')">
+            <button onclick="openSellerDashboard()">
                 View Dashboard
             </button>
 
@@ -418,7 +418,34 @@
     <div id="registrationMessage" style="margin-top:20px;"></div>
 </section>
 
-  <!-- ADMIN DASHBOARD -->
+<!-- SELLER DASHBOARD -->
+<section id="sellerSection" style="display:none; max-width:800px; margin:40px auto; padding:30px; background:white; border:1px solid #d5dde2; border-radius:12px;">
+
+    <h2 style="margin-bottom:15px;">🏪 Seller Dashboard — Demo</h2>
+
+    <p style="color:#566573; margin-bottom:20px;">
+        View your submitted products and their review status.
+    </p>
+
+    <div style="background:#f3f7fa; padding:20px; border-radius:10px;">
+
+        <h3>My Products</h3>
+
+        <p><strong>Seller:</strong> Demo Mobile Store</p>
+        <p><strong>Product:</strong> Wireless Bluetooth Speaker</p>
+        <p><strong>Brand:</strong> SoundMax</p>
+        <p><strong>Serial Number:</strong> SM2026</p>
+        <p><strong>Status:</strong> Pending Admin Review (Demo)</p>
+
+    </div>
+
+    <p style="font-size:13px; color:#64748b; margin-top:20px;">
+        Demonstration only. This dashboard displays sample data.
+    </p>
+
+</section>
+    
+    <!-- ADMIN DASHBOARD -->
 <section id="adminSection" style="display:none; max-width:800px; margin:40px auto; padding:30px; background:white; border:1px solid #d5dde2; border-radius:12px;">
 
     <h2 style="margin-bottom:15px;">🛡️ Admin Dashboard — Demo</h2>
@@ -553,7 +580,16 @@ function openAdminDashboard() {
         block: "start"
     });
 }
+function openSellerDashboard() {
+    const section = document.getElementById("sellerSection");
 
+    section.style.display = "block";
+
+    section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
 function reviewDemoProduct(decision) {
     const message = document.getElementById("adminMessage");
 
