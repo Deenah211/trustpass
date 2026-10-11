@@ -554,12 +554,34 @@ function verifyProduct() {
         box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     `;
 
+const savedProduct = localStorage.getItem("trustpassPendingProduct");
+const registeredProduct = savedProduct ? JSON.parse(savedProduct) : null;    
     if (code === "") {
         result.innerHTML = `
             <p style="color:#b45309;">
                 Please enter a Product ID.
             </p>
         `;
+    } else if (
+    registeredProduct &&
+    code === registeredProduct.serial.toUpperCase()
+) {
+    result.innerHTML = "";
+
+    const heading = document.createElement("h2");
+    heading.textContent = "🛡️ Product Passport — Demo";
+    result.appendChild(heading);
+
+    ["product", "brand", "seller", "serial", "status"].forEach(function(field) {
+        const line = document.createElement("p");
+        line.textContent = field.toUpperCase() + ": " + registeredProduct[field];
+        result.appendChild(line);
+    });
+
+    const note = document.createElement("p");
+    note.textContent = "Demo only. Approval means the submitted details were reviewed in this prototype, not that the product is independently authenticated.";
+    note.style.fontSize = "13px";
+    result.appendChild(note);
     } else if (code === "TP1001") {
         result.innerHTML = `
             <h2 style="color:#078d67;">
