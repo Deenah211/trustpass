@@ -350,7 +350,7 @@
                 approvals, and product verification.
             </p>
 
-            <button onclick="showMessage('Admin Dashboard coming next!')">
+            <button onclick="openAdminDashboard()">
                 Control Panel
             </button>
 
@@ -418,6 +418,43 @@
     <div id="registrationMessage" style="margin-top:20px;"></div>
 </section>
 
+  <!-- ADMIN DASHBOARD -->
+<section id="adminSection" style="display:none; max-width:800px; margin:40px auto; padding:30px; background:white; border:1px solid #d5dde2; border-radius:12px;">
+
+    <h2 style="margin-bottom:15px;">🛡️ Admin Dashboard — Demo</h2>
+
+    <p style="color:#566573; margin-bottom:20px;">
+        Review product registration requests before issuing a verified product passport.
+    </p>
+
+    <div style="padding:20px; background:#f3f7fa; border-radius:10px; margin-bottom:20px;">
+
+        <h3>Pending Product Review</h3>
+
+        <p><strong>Seller:</strong> Demo Mobile Store</p>
+        <p><strong>Product:</strong> Wireless Bluetooth Speaker</p>
+        <p><strong>Brand:</strong> SoundMax</p>
+        <p><strong>Serial Number:</strong> SM2026</p>
+        <p><strong>Proof:</strong> Sample invoice and supplier details</p>
+        <p><strong>Status:</strong> Pending Review (Demo)</p>
+
+    </div>
+
+    <button onclick="reviewDemoProduct('approved')" style="background:#0aa879; color:white; border:0; padding:12px 20px; border-radius:8px; cursor:pointer;">
+        Approve
+    </button>
+
+    <button onclick="reviewDemoProduct('rejected')" style="background:#b45309; color:white; border:0; padding:12px 20px; border-radius:8px; cursor:pointer;">
+        Reject
+    </button>
+
+    <div id="adminMessage" style="margin-top:20px;"></div>
+
+    <p style="font-size:13px; color:#64748b; margin-top:20px;">
+        Demonstration only. Decisions are not saved to a database.
+    </p>
+
+</section>
     <!-- JAVASCRIPT -->
 
     <script>
@@ -506,7 +543,34 @@ function verifyProduct() {
 
         }
 
-function openRegistrationForm() {
+function openAdminDashboard() {
+    const section = document.getElementById("adminSection");
+
+    section.style.display = "block";
+
+    section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+function reviewDemoProduct(decision) {
+    const message = document.getElementById("adminMessage");
+
+    if (decision === "approved") {
+        message.innerHTML =
+            "✅ Demo Product Approved<br>" +
+            "The sample product has been marked approved for demonstration.";
+        message.style.color = "#078d67";
+    } else {
+        message.innerHTML =
+            "❌ Demo Product Rejected<br>" +
+            "The sample product has been marked rejected for demonstration.";
+        message.style.color = "#b45309";
+    }
+}
+        
+        function openRegistrationForm() {
     const section = document.getElementById("registrationSection");
 
     section.style.display = "block";
