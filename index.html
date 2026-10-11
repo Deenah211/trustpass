@@ -314,7 +314,7 @@
                 to add new products and create codes.
             </p>
 
-            <button onclick="showMessage('Product registration page coming next!')">
+            <button onclick="openRegistrationForm()">
                 Register
             </button>
 
@@ -376,6 +376,47 @@
 
     </section>
 
+
+<!-- PRODUCT REGISTRATION FORM -->
+<section id="registrationSection" style="display:none; max-width:600px; margin:40px auto; padding:30px; background:white; border:1px solid #d5dde2; border-radius:12px;">
+
+    <h2 style="margin-bottom:12px;">Register a Product</h2>
+
+    <p style="margin-bottom:20px; color:#566573;">
+        Submit product details for admin review.
+        Registration does not automatically verify authenticity.
+    </p>
+
+    <form id="registrationForm" onsubmit="submitRegistration(event)">
+
+        <label for="sellerName">Seller Name</label>
+        <input id="sellerName" type="text" required placeholder="Enter seller name"
+            style="width:100%;padding:12px;margin:8px 0 18px;border:1px solid #ccd6dd;border-radius:8px;">
+
+        <label for="productName">Product Name</label>
+        <input id="productName" type="text" required placeholder="Enter product name"
+            style="width:100%;padding:12px;margin:8px 0 18px;border:1px solid #ccd6dd;border-radius:8px;">
+
+        <label for="brandName">Brand</label>
+        <input id="brandName" type="text" required placeholder="Enter brand"
+            style="width:100%;padding:12px;margin:8px 0 18px;border:1px solid #ccd6dd;border-radius:8px;">
+
+        <label for="serialNumber">Serial / Batch Number</label>
+        <input id="serialNumber" type="text" required placeholder="Enter serial or batch number"
+            style="width:100%;padding:12px;margin:8px 0 18px;border:1px solid #ccd6dd;border-radius:8px;">
+
+        <label for="proofDetails">Proof Details (Demo)</label>
+        <textarea id="proofDetails" required placeholder="Describe invoice, purchase source, or other supporting documents"
+            style="width:100%;padding:12px;margin:8px 0 18px;border:1px solid #ccd6dd;border-radius:8px;min-height:90px;"></textarea>
+
+        <button type="submit" style="background:#0aa879;color:white;border:0;padding:13px 22px;border-radius:8px;cursor:pointer;">
+            Submit for Review
+        </button>
+
+    </form>
+
+    <div id="registrationMessage" style="margin-top:20px;"></div>
+</section>
 
     <!-- JAVASCRIPT -->
 
@@ -464,6 +505,53 @@ function verifyProduct() {
             alert(message);
 
         }
+
+function openRegistrationForm() {
+    const section = document.getElementById("registrationSection");
+
+    section.style.display = "block";
+    section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+function submitRegistration(event) {
+    event.preventDefault();
+
+    const seller = document.getElementById("sellerName").value.trim();
+    const product = document.getElementById("productName").value.trim();
+    const brand = document.getElementById("brandName").value.trim();
+    const serial = document.getElementById("serialNumber").value.trim();
+    const proof = document.getElementById("proofDetails").value.trim();
+
+    const message = document.getElementById("registrationMessage");
+
+    if (!seller || !product || !brand || !serial || !proof) {
+        message.textContent = "Please complete all fields.";
+        message.style.color = "#b45309";
+        return;
+    }
+
+    message.innerHTML = "";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "✅ Demo Submission Received";
+
+    const details = document.createElement("p");
+    details.textContent =
+        product + " (" + brand + ") submitted by " + seller +
+        ". Status: Pending Admin Review.";
+
+    const note = document.createElement("p");
+    note.textContent =
+        "This is a prototype only. Your submission has not been saved or sent to an administrator.";
+
+    note.style.cssText = "font-size:13px;color:#64748b;margin-top:10px;";
+
+    message.append(heading, details, note);
+    message.style.color = "#078d67";
+}
 
     </script>
 
