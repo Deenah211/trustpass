@@ -618,6 +618,27 @@ function openAdminDashboard() {
     const section = document.getElementById("adminSection");
 
     section.style.display = "block";
+    const savedProduct = localStorage.getItem("trustpassPendingProduct");
+
+if (savedProduct) {
+    const product = JSON.parse(savedProduct);
+    const adminBox = section.querySelector("div");
+
+    if (adminBox) {
+        adminBox.innerHTML = "";
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Pending Product Review";
+
+        adminBox.appendChild(heading);
+
+        ["seller", "product", "brand", "serial", "proof", "status"].forEach(function(field) {
+            const line = document.createElement("p");
+            line.textContent = field.toUpperCase() + ": " + product[field];
+            adminBox.appendChild(line);
+        });
+    }
+}
 
     section.scrollIntoView({
         behavior: "smooth",
