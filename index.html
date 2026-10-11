@@ -368,7 +368,7 @@
                 Flag counterfeit or suspicious items here.
             </p>
 
-            <button onclick="showMessage('Report system coming next!')">
+            <button onclick="openReportForm()">
                 Report Now
             </button>
 
@@ -417,7 +417,51 @@
 
     <div id="registrationMessage" style="margin-top:20px;"></div>
 </section>
+<!-- REPORT PRODUCT FORM -->
+<section id="reportSection" style="display:none; max-width:600px; margin:40px auto; padding:30px; background:white; border:1px solid #d5dde2; border-radius:12px;">
 
+    <h2 style="margin-bottom:15px;">🚩 Report a Suspicious Product</h2>
+
+    <p style="color:#566573; margin-bottom:20px;">
+        Tell us why you believe this product may be suspicious.
+        Submitting a report does not automatically mean the product is counterfeit.
+    </p>
+
+    <form id="reportForm" onsubmit="submitReport(event)">
+
+        <label for="reportProductId">Product ID / Serial Number</label>
+        <input id="reportProductId" type="text" required
+            placeholder="Enter product ID or serial number"
+            style="width:100%; padding:12px; margin:8px 0 18px; border:1px solid #ccd6dd; border-radius:8px;">
+
+        <label for="reportReason">Reason for Reporting</label>
+        <select id="reportReason" required
+            style="width:100%; padding:12px; margin:8px 0 18px; border:1px solid #ccd6dd; border-radius:8px;">
+            <option value="">Select a reason</option>
+            <option value="Suspected counterfeit">Suspected counterfeit</option>
+            <option value="Product details do not match">Product details do not match</option>
+            <option value="Suspicious seller">Suspicious seller</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="reportDetails">Describe the Problem</label>
+        <textarea id="reportDetails" required
+            placeholder="Explain what seems suspicious"
+            style="width:100%; padding:12px; margin:8px 0 18px; min-height:100px; border:1px solid #ccd6dd; border-radius:8px;"></textarea>
+
+        <button type="submit" style="background:#b45309; color:white; border:0; padding:13px 22px; border-radius:8px; cursor:pointer;">
+            Submit Report
+        </button>
+
+    </form>
+
+    <div id="reportMessage" style="margin-top:20px;"></div>
+
+    <p style="font-size:13px; color:#64748b; margin-top:20px;">
+        Demo only. Reports are not saved or sent to an administrator.
+    </p>
+
+</section>
 <!-- SELLER DASHBOARD -->
 <section id="sellerSection" style="display:none; max-width:800px; margin:40px auto; padding:30px; background:white; border:1px solid #d5dde2; border-radius:12px;">
 
@@ -589,6 +633,38 @@ function openSellerDashboard() {
         behavior: "smooth",
         block: "start"
     });
+function openReportForm() {
+    const section = document.getElementById("reportSection");
+
+    section.style.display = "block";
+
+    section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+function submitReport(event) {
+    event.preventDefault();
+
+    const productId = document.getElementById("reportProductId").value.trim();
+    const reason = document.getElementById("reportReason").value;
+    const details = document.getElementById("reportDetails").value.trim();
+    const message = document.getElementById("reportMessage");
+
+    if (!productId || !reason || !details) {
+        message.textContent = "Please complete all fields.";
+        message.style.color = "#b45309";
+        return;
+    }
+
+    message.textContent =
+        "✅ Demo Report Received for Product ID: " + productId +
+        ". Reason: " + reason +
+        ". This is a prototype; the report has not been saved or sent.";
+
+    message.style.color = "#078d67";
+}
 }
 function reviewDemoProduct(decision) {
     const message = document.getElementById("adminMessage");
