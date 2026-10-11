@@ -531,7 +531,17 @@
     <script>
 
      
-function verifyProduct() {
+window.addEventListener("load", function () {
+    const params = new URLSearchParams(window.location.search);
+    const serial = params.get("serial");
+
+    if (serial) {
+        document.getElementById("productCode").value = serial;
+        verifyProduct();
+    }
+});
+       
+        function verifyProduct() {
     const code = document.getElementById("productCode").value.trim().toUpperCase();
 
     const oldResult = document.getElementById("verificationResult");
