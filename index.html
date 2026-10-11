@@ -381,25 +381,73 @@
 
     <script>
 
-        function verifyProduct() {
+     
+function verifyProduct() {
+    const code = document.getElementById("productCode").value.trim().toUpperCase();
 
-            const code =
-                document.getElementById("productCode").value;
+    const oldResult = document.getElementById("verificationResult");
+    if (oldResult) {
+        oldResult.remove();
+    }
 
-            if (code.trim() === "") {
+    const result = document.createElement("div");
+    result.id = "verificationResult";
 
-                alert("Please enter a product serial number.");
+    result.style.cssText = `
+        background: white;
+        max-width: 500px;
+        margin: 25px auto;
+        padding: 25px;
+        border: 1px solid #d5dde2;
+        border-radius: 12px;
+        text-align: left;
+        line-height: 1.8;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    `;
 
-            } else {
+    if (code === "") {
+        result.innerHTML = `
+            <p style="color:#b45309;">
+                Please enter a Product ID.
+            </p>
+        `;
+    } else if (code === "TP1001") {
+        result.innerHTML = `
+            <h2 style="color:#078d67;">
+                🛡️ Product Passport — Demo
+            </h2>
+            <hr style="margin:15px 0;border:1px solid #eee;">
 
-                alert(
-                    "Checking Product ID: " + code +
-                    "\n\nVerification system will be connected to the database soon."
-                );
+            <p><strong>Product ID:</strong> TP1001</p>
+            <p><strong>Product:</strong> Sample Wireless Headphones</p>
+            <p><strong>Seller:</strong> Demo Electronics Store</p>
+            <p><strong>Status:</strong> Sample documents reviewed</p>
+            <p><strong>Documents:</strong> Sample purchase invoice and product photos</p>
 
-            }
+            <p style="font-size:13px;color:#64748b;margin-top:15px;">
+                Demonstration only. This product has not been independently authenticated.
+            </p>
+        `;
+    } else {
+        result.innerHTML = `
+            <h2 style="color:#b45309;">
+                ⚠️ Product Not Found
+            </h2>
+            <p>
+                No sample product passport was found for ID:
+                <strong id="searchedCode"></strong>
+            </p>
+            <p style="font-size:13px;color:#64748b;">
+                Not found does not necessarily mean the product is counterfeit.
+            </p>
+        `;
 
-        }
+        result.querySelector("#searchedCode").textContent = code;
+    }
+
+    document.querySelector(".hero").appendChild(result);
+}
+
 
 
         function focusVerification() {
