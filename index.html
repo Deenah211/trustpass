@@ -537,7 +537,13 @@ window.addEventListener("load", function () {
 
     if (serial) {
         document.getElementById("productCode").value = serial;
-        verifyProduct();
+        setTimeout(verifyProduct, 500);
+        setTimeout(function () {
+    const passport = document.getElementById("verificationResult");
+    if (passport) {
+        passport.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}, 200);
     }
 });
        
