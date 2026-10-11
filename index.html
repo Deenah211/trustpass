@@ -690,6 +690,32 @@ function submitReport(event) {
 
 function reviewDemoProduct(decision) {
     const message = document.getElementById("adminMessage");
+    const savedProduct = localStorage.getItem("trustpassPendingProduct");
+
+if (savedProduct) {
+    const product = JSON.parse(savedProduct);
+
+    product.status = decision === "approved" ? "Approved" : "Rejected";
+
+    localStorage.setItem(
+        "trustpassPendingProduct",
+        JSON.stringify(product)
+    );
+
+    const adminBox = document
+        .getElementById("adminSection")
+        .querySelector("div");
+
+    if (adminBox) {
+        const lines = adminBox.querySelectorAll("p");
+
+        lines.forEach(function(line) {
+            if (line.textContent.startsWith("STATUS:")) {
+                line.textContent = "STATUS: " + product.status;
+            }
+        });
+    }
+}
 
     if (decision === "approved") {
         message.innerHTML =
