@@ -547,9 +547,9 @@ window.addEventListener("load", function () {
     }
 });
        
-        function verifyProduct() {
+      async function verifyProduct() {
     const code = document.getElementById("productCode").value.trim().toUpperCase();
-
+const firebaseProduct = code && window.trustpassGetProduct ? await window.trustpassGetProduct(code).catch(() => null) : null;
     const oldResult = document.getElementById("verificationResult");
     if (oldResult) {
         oldResult.remove();
@@ -571,7 +571,7 @@ window.addEventListener("load", function () {
     `;
 
 const savedProduct = localStorage.getItem("trustpassPendingProduct");
-const registeredProduct = savedProduct ? JSON.parse(savedProduct) : null;    
+const registeredProduct = firebaseProduct ? (firebaseProduct.status === "Approved" ? firebaseProduct : null) : (savedProduct ? JSON.parse(savedProduct) : null); 
     if (code === "") {
         result.innerHTML = `
             <p style="color:#b45309;">
@@ -845,6 +845,11 @@ function submitRegistration(event) {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    window.trustpassDB = db;
+window.trustpassGetProduct = async function(serial) {
+    const snapshot = await getDoc(doc(db, "products", serial));
+    return snapshot.exists() ? snapshot.data() : null;
+};
 </script>
 
 </body>
